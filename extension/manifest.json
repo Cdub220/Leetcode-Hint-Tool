@@ -1,0 +1,30 @@
+{
+  "manifest_version": 3,
+  "name": "Leetcode Hint Tool",
+  "version": "0.1.0",
+  "description": "Gentle, step-by-step AI hints for LeetCode without spoilers.",
+  "permissions": ["activeTab", "scripting", "storage"],
+  "host_permissions": [
+    "https://leetcode.com/*",
+    "https://generativelanguage.googleapis.com/*"
+  ],
+  "action": { "default_popup": "popup.html" },
+  "background": { "service_worker": "background.js", "type": "module" },
+  "content_scripts": [
+    {
+      "matches": ["https://leetcode.com/problems/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "commands": {
+    "toggle-hints": {
+      "suggested_key": { "default": "Alt+H", "mac": "Alt+H" },
+      "description": "Toggle the hint panel"
+    },
+    "next-hint": {
+      "suggested_key": { "default": "Alt+Shift+H", "mac": "Alt+Shift+H" },
+      "description": "Show the next hint"
+    }
+  }
+}

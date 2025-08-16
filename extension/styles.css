@@ -1,0 +1,203 @@
+/* =========================================================
+   LeetCode-like Dark Theme (no white flash on scroll)
+   ========================================================= */
+:root{
+  /* LC-ish palette */
+  --bg: #0f1419;          /* page background */
+  --elev: #121821;        /* raised surfaces */
+  --surface: #161d27;     /* cards/inputs */
+  --text: #e6edf3;        /* primary text */
+  --muted: #9aa7b3;       /* secondary text */
+  --border: #222b36;      /* outlines */
+  --accent: #ffa116;      /* LeetCode orange */
+  --accent-2: #ffd79b;    /* lighter accent */
+  --danger: #ef5350;
+  --success: #22c55e;
+  --ring: #3b82f6;
+  --chip: #1b2330;
+}
+
+*{ box-sizing:border-box; }
+html, body{
+  margin:0; padding:0;
+  width:100%; height:100%;
+  background: var(--bg);              /* ensures dark bounce edge */
+  color: var(--text);
+  overscroll-behavior: contain;        /* prevent glow/overscroll artifacts */
+  -webkit-tap-highlight-color: transparent;
+}
+body.popup{
+  min-width: 340px;
+  max-width: 420px;
+  font: 14px/1.45 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+  display:flex; flex-direction:column;
+}
+
+/* Scrollbar (subtle, dark) */
+*::-webkit-scrollbar{ width:10px; height:10px; }
+*::-webkit-scrollbar-track{ background: var(--bg); }
+*::-webkit-scrollbar-thumb{
+  background: #253040; border-radius:8px; border:2px solid var(--bg);
+}
+
+/* ====== Layout ====== */
+.header{
+  display:flex; align-items:center; gap:10px;
+  padding:12px 14px;
+  background: #0f1419;         /* solid top to avoid white flash */
+  border-bottom: 1px solid var(--border);
+  position: sticky; top:0; z-index:2;
+}
+.logo{
+  display:grid; place-items:center;
+  width:34px; height:34px; border-radius:8px;
+  background:#141a23; border:1px solid #1d2633;
+}
+.title h1{
+  margin:0 0 2px 0; font-size:14px; font-weight:700; letter-spacing:0.2px;
+}
+.content{
+  padding:12px 14px;
+  background: var(--bg);       /* solid body to bottom */
+  flex:1; overflow:auto;
+}
+.footer{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:10px 14px 12px;
+  border-top: 1px solid var(--border);
+  background: var(--bg);       /* solid bottom to avoid white flash */
+}
+
+/* ====== Form & Cards ====== */
+.field{ margin-bottom:12px; }
+label{ display:block; font-weight:700; margin-bottom:6px; }
+
+.card{
+  border:1px solid var(--border);
+  background: var(--surface);
+  border-radius:12px;
+  padding:10px;
+}
+
+.card { overflow: hidden; }
+
+.model-callout{
+  display:flex; align-items:center; gap:10px;
+  border:1px dashed #2a3444;
+  background: #121925;
+  border-radius:12px;
+  padding:10px 12px;
+}
+.model-heading{
+  font-weight:700; color: var(--accent-2);
+}
+.mono{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New"; }
+.desc, .help, .muted{ color: var(--muted); }
+
+/* ====== Inputs ====== */
+.input, select, textarea{
+  width:100%;
+  padding:10px 12px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  outline:none;
+}
+.input:focus, select:focus, textarea:focus{
+  border-color: var(--ring);
+  box-shadow: 0 0 0 3px rgba(59,130,246,.25);
+}
+
+/* Range */
+input[type="range"]{
+  appearance:none; width:100%; height:4px; border-radius:999px;
+  background: #273142;
+}
+input[type="range"]::-webkit-slider-thumb{
+  appearance:none; width:18px; height:18px; border-radius:50%;
+  background: var(--accent);
+  border:2px solid #f9f9f9;
+  box-shadow: 0 0 0 3px rgba(255,161,22,.25);
+  cursor:pointer;
+}
+
+/* Switch */
+.switch-row{
+  display: grid;
+  grid-template-columns: 1fr auto; /* text grows, switch stays tight */
+  gap: 12px;
+  align-items: center;
+}
+.switch{ position:relative; display:inline-block; width:46px; height:26px; }
+.switch input{ display:none; }
+.slider{
+  position:absolute; inset:0; border-radius:999px;
+  background:#263042; transition:background .16s ease;
+}
+.switch-row > div { min-width: 0; word-break: break-word; }
+.slider::after{
+  content:""; position:absolute; top:3px; left:3px; width:20px; height:20px;
+  border-radius:50%; background: var(--accent); box-shadow:0 2px 6px rgba(0,0,0,.25);
+  transition: transform .16s ease;
+}
+.switch input:checked + .slider{ background:#3b475d; }
+.switch input:checked + .slider::after{ transform: translateX(20px); }
+
+/* Badges & Chips */
+.badge{
+  display:inline-flex; align-items:center; gap:6px;
+  padding:2px 8px; border-radius:999px; font-size:12px; font-weight:700;
+  border:1px solid var(--border); background:#121925;
+}
+.badge-success{ color: var(--success); border-color: #2f5841; background:#0f1a14; }
+.badge-danger{ color: #ff8f8c; border-color:#402325; background:#1a1213; }
+.chip{ background: var(--chip); color: var(--text); padding:2px 8px; border-radius:999px; font-size:12px; }
+
+/* Buttons */
+.actions{ display:flex; align-items:center; gap:8px; margin-top:8px; }
+.spacer{ flex:1; }
+.btn{
+  appearance:none; border:1px solid var(--border); background: var(--surface);
+  color: var(--text); padding:8px 12px; border-radius:10px; font-weight:700; cursor:pointer;
+}
+.btn:hover{ background:#1b2432; }
+.btn-primary{
+  border-color: transparent;
+  background: linear-gradient(180deg, #ffb547, var(--accent));
+  color:#1b1b1b;
+}
+.btn-ghost{ background: transparent; }
+
+/* Shortcuts */
+.shortcuts{ display:grid; grid-template-columns:1fr; gap:6px; }
+kbd{
+  padding:2px 6px; border-radius:6px; border:1px solid var(--border);
+  background: #0f1722; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas;
+  font-size:12px;
+}
+
+/* Links */
+.link{ color: var(--accent); text-decoration:none; font-weight:700; }
+.link:hover{ text-decoration:underline; }
+
+/* Toast */
+.toast{
+  position: fixed; inset-inline: 14px; bottom: 72px; z-index: 5;
+  display:inline-flex; align-items:center; gap:10px;
+  padding:10px 12px; border-radius:12px;
+  background: #121925; color: var(--text); border:1px solid var(--border);
+  box-shadow: 0 10px 30px rgba(0,0,0,.35);
+}
+.toast.ok{ border-color:#2f5841; }
+.toast.error{ border-color:#5a2b2d; }
+
+.toast { display: none; }
+.toast.is-visible { display: inline-flex; }
+
+
+/* A11y */
+.sr-only{
+  position:absolute!important; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden;
+  clip:rect(0,0,0,0); white-space:nowrap; border:0;
+}

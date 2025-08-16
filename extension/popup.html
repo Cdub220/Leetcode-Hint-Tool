@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Leetcode Hint Tool</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="popup" data-provider="gemini" data-model="gemini-2.5-pro">
+  <header class="header">
+    <div class="logo" aria-hidden="true">
+      <!-- Simple LC-style accent -->
+      <svg viewBox="0 0 64 64" width="26" height="26" role="img" aria-label="Logo">
+        <circle cx="32" cy="32" r="30" fill="#1a1f2a"/>
+        <path d="M32 14l6.5 11.5 13 2-9.5 8.3 2.5 12.7L32 42.5 19.5 48.5 22 35.8 12.5 27.5l13-2z" fill="#ffa116" opacity="0.95"/>
+      </svg>
+    </div>
+    <div class="title">
+      <h1>Leetcode Hint Tool</h1>
+      <span id="status-badge" class="badge badge-danger" aria-live="polite">Cloud: Disconnected</span>
+    </div>
+  </header>
+
+  <main class="content">
+    <form id="settings-form" autocomplete="off">
+      <!-- Fixed model display -->
+      <div class="field">
+        <label>Model</label>
+        <div class="model-callout">
+          <span class="model-heading">Using Gemini 2.5 Pro</span>
+          <span class="chip mono">gemini-2.5-pro</span>
+        </div>
+      </div>
+
+      <!-- No-Spoiler toggle -->
+      <div class="field card switch-row">
+        <div>
+          <label for="noSpoilers">No-Spoiler Mode</label>
+          <p class="desc">Hints escalate gradually; never reveal full code unless explicitly requested.</p>
+        </div>
+        <label class="switch">
+          <input id="noSpoilers" name="noSpoilers" type="checkbox" checked />
+          <span class="slider" aria-hidden="true"></span>
+          <span class="sr-only">Toggle no-spoiler mode</span>
+        </label>
+      </div>
+
+      <!-- Hint depth -->
+      <div class="field card">
+        <label for="hintDepth">Max Hint Levels <span id="depthValue" class="chip">4</span></label>
+        <input id="hintDepth" name="hintDepth" type="range" min="1" max="6" step="1" value="4" />
+        <p class="desc">Number of hint tiers before offering a high-level outline.</p>
+      </div>
+
+      <!-- Shortcuts -->
+      <div class="field card">
+        <label>Shortcuts</label>
+        <div class="shortcuts">
+          <div><kbd>Alt</kbd> + <kbd>H</kbd> — Toggle panel</div>
+          <div><kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>H</kbd> — Next hint</div>
+          <a href="chrome://extensions/shortcuts" target="_blank" rel="noreferrer" class="link">Edit shortcuts</a>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="actions">
+        <button type="button" id="test-api" class="btn btn-ghost" data-action="test">Test API</button>
+        <div class="spacer"></div>
+        <button type="reset" class="btn btn-ghost">Reset</button>
+        <button type="submit" id="save" class="btn btn-primary" data-action="save">Save</button>
+      </div>
+    </form>
+
+    <!-- Toast -->
+    <div class="toast" id="toast" role="status" aria-live="polite" hidden>
+      <span id="toast-message">Saved</span>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <span class="muted">v0.1.0</span>
+  </footer>
+</body>
+</html>
